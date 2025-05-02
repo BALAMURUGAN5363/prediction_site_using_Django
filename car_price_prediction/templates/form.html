@@ -7,7 +7,10 @@
 <div class="container">
     <div class="prediction-card">
         <header>
-            <img src="{% static 'car_price_prediction/logo.jpg' %}" alt="Car Price Prediction" class="logo">
+            <div class="logo-container">
+                <img src="{% static 'car_price_prediction/logo.jpg' %}" alt="Car Price Prediction" class="logo">
+                <div class="logo-glow"></div>
+            </div>
             <h2>Car Price Prediction</h2>
         </header>
 
@@ -15,88 +18,75 @@
             {% csrf_token %}
             
             <div class="form-row">
-                <div class="form-group">
-                    <label for="name">Car Name:</label>
-                    <input type="text" name="name" id="name" placeholder="Enter car name" required>
-                </div>
-            </div>
-
-            <div class="form-row">
                 <div class="form-group half">
                     <label for="year">Year:</label>
-                    <input type="number" name="year" id="year" min="1900" max="2024" placeholder="Enter year" required>
+                    <input type="number" name="year" id="year" class="interactive-input" min="1900" max="2024" required>
+                    <div class="input-glow"></div>
                 </div>
                 <div class="form-group half">
-                    <label for="km_driven">Kilometers Driven:</label>
-                    <input type="number" name="km_driven" id="km_driven" min="0" placeholder="Enter kilometers" required>
+                    <label for="present_price">Present Price (in Lakhs):</label>
+                    <input type="number" step="0.1" name="present_price" id="present_price" class="interactive-input" min="0" required>
+                    <div class="input-glow"></div>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group half">
-                    <label for="fuel">Fuel Type:</label>
-                    <select name="fuel" id="fuel" required>
+                    <label for="kms_driven">Kilometers Driven:</label>
+                    <input type="number" name="kms_driven" id="kms_driven" class="interactive-input" min="0" required>
+                    <div class="input-glow"></div>
+                </div>
+                <div class="form-group half">
+                    <label for="fuel_type">Fuel Type:</label>
+                    <select name="fuel_type" id="fuel_type" class="interactive-input" required>
                         <option value="">Select fuel type</option>
                         <option value="Petrol">Petrol</option>
                         <option value="Diesel">Diesel</option>
                         <option value="CNG">CNG</option>
-                        <option value="Electric">Electric</option>
                     </select>
+                    <div class="input-glow"></div>
                 </div>
+            </div>
+
+            <div class="form-row">
                 <div class="form-group half">
                     <label for="seller_type">Seller Type:</label>
-                    <select name="seller_type" id="seller_type" required>
+                    <select name="seller_type" id="seller_type" class="interactive-input" required>
                         <option value="">Select seller type</option>
                         <option value="Individual">Individual</option>
                         <option value="Dealer">Dealer</option>
                     </select>
+                    <div class="input-glow"></div>
                 </div>
-            </div>
-
-            <div class="form-row">
                 <div class="form-group half">
                     <label for="transmission">Transmission:</label>
-                    <select name="transmission" id="transmission" required>
+                    <select name="transmission" id="transmission" class="interactive-input" required>
                         <option value="">Select transmission</option>
                         <option value="Manual">Manual</option>
                         <option value="Automatic">Automatic</option>
                     </select>
+                    <div class="input-glow"></div>
                 </div>
-                <div class="form-group half">
-                    <label for="owner">Owner:</label>
-                    <select name="owner" id="owner" required>
-                        <option value="">Select owner type</option>
-                        <option value="1">First Owner</option>
-                        <option value="2">Second Owner</option>
-                        <option value="3">Third Owner</option>
-                        <option value="4">Fourth & Above Owner</option>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="owner">Number of Previous Owners:</label>
+                    <select name="owner" id="owner" class="interactive-input" required>
+                        <option value="">Select number of owners</option>
+                        <option value="0">First Owner</option>
+                        <option value="1">Second Owner</option>
+                        <option value="2">Third Owner</option>
+                        <option value="3">Fourth & Above Owner</option>
                     </select>
+                    <div class="input-glow"></div>
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group half">
-                    <label for="mileage">Mileage (km/l):</label>
-                    <input type="number" step="0.1" name="mileage" id="mileage" min="0" placeholder="Enter mileage" required>
-                </div>
-                <div class="form-group half">
-                    <label for="engine">Engine (CC):</label>
-                    <input type="number" name="engine" id="engine" min="0" placeholder="Enter engine capacity" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group half">
-                    <label for="max_power">Max Power (bhp):</label>
-                    <input type="number" step="0.1" name="max_power" id="max_power" min="0" placeholder="Enter max power" required>
-                </div>
-                <div class="form-group half">
-                    <label for="seats">Number of Seats:</label>
-                    <input type="number" name="seats" id="seats" min="1" max="10" placeholder="Enter seats" required>
-                </div>
-            </div>
-
-            <button type="submit" class="predict-button">Predict Price</button>
+            <button type="submit" class="predict-button">
+                <span>Predict Price</span>
+                <div class="button-glow"></div>
+            </button>
         </form>
 
         {% if result %}
