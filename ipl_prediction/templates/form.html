@@ -1,0 +1,87 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'ipl_prediction/style.css' %}">
+
+<div class="container">
+    <div class="prediction-card">
+        <header>
+            <div class="logo-container">
+                <img src="{% static 'ipl_prediction/logo.jpg' %}" alt="IPL Prediction" class="logo">
+                <div class="logo-glow"></div>
+            </div>
+            <h2>IPL Match Prediction</h2>
+        </header>
+
+        <form method="POST" action="{% url 'predict_ipl' %}" class="prediction-form">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group half">
+                    <label for="batting_team">Batting Team:</label>
+                    <select name="batting_team" id="batting_team" class="interactive-input" required>
+                        <option value="">Select team</option>
+                        <option value="Mumbai Indians">Mumbai Indians</option>
+                        <option value="Chennai Super Kings">Chennai Super Kings</option>
+                        <!-- Add other teams -->
+                    </select>
+                    <div class="input-glow"></div>
+                </div>
+                <div class="form-group half">
+                    <label for="bowling_team">Bowling Team:</label>
+                    <select name="bowling_team" id="bowling_team" class="interactive-input" required>
+                        <option value="">Select team</option>
+                        <option value="Mumbai Indians">Mumbai Indians</option>
+                        <option value="Chennai Super Kings">Chennai Super Kings</option>
+                        <!-- Add other teams -->
+                    </select>
+                    <div class="input-glow"></div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group third">
+                    <label for="runs">Current Runs:</label>
+                    <input type="number" name="runs" id="runs" class="interactive-input" min="0" required>
+                    <div class="input-glow"></div>
+                </div>
+                <div class="form-group third">
+                    <label for="wickets">Wickets:</label>
+                    <input type="number" name="wickets" id="wickets" class="interactive-input" min="0" max="10" required>
+                    <div class="input-glow"></div>
+                </div>
+                <div class="form-group third">
+                    <label for="overs">Overs:</label>
+                    <input type="number" step="0.1" name="overs" id="overs" class="interactive-input" min="0" max="20" required>
+                    <div class="input-glow"></div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label for="runs_last_5">Runs in Last 5 Overs:</label>
+                    <input type="number" name="runs_last_5" id="runs_last_5" class="interactive-input" min="0" required>
+                    <div class="input-glow"></div>
+                </div>
+                <div class="form-group half">
+                    <label for="wickets_last_5">Wickets in Last 5 Overs:</label>
+                    <input type="number" name="wickets_last_5" id="wickets_last_5" class="interactive-input" min="0" max="10" required>
+                    <div class="input-glow"></div>
+                </div>
+            </div>
+
+            <button type="submit" class="predict-button">
+                <span>Predict Score</span>
+                <div class="button-glow"></div>
+            </button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <h3>{{ result }}</h3>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
