@@ -1,0 +1,15 @@
+body {
+    background-image: url("/static/blog/background3.jpg"); /* Path to your image */
+    background-size: cover; /* Ensures the image covers the entire screen */
+    background-repeat: no-repeat; /* Prevents tiling */
+    background-position: center center; /* Centers the image */
+    
+}
+h2 {
+    color: white; /* Sets the text color to white */
+    font-weight: bold;
+    
+}
+
+
+
