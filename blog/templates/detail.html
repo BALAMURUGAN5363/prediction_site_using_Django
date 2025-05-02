@@ -1,0 +1,114 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'diabetes_predictor/style.css' %}">
+
+<div class="container">
+    {% if prediction_type == 'diabetes' %}
+    <header>
+        <img src="{% static 'diabetes_predictor/logo.jpeg' %}" alt="Diabetes Prediction" class="logo">
+        <h2>Diabetes Prediction</h2>
+    </header>
+
+    <form method="POST" action="{% url 'predict_diabetes' %}">
+        {% csrf_token %}
+
+        <label for="gender">Gender:</label>
+        <select name="gender" id="gender" required>
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+        </select>
+
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required>
+
+        <label for="hypertension">Hypertension:</label>
+        <select name="hypertension" id="hypertension" required>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <label for="heart_disease">Heart Disease:</label>
+        <select name="heart_disease" id="heart_disease" required>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+
+        <label for="bmi">BMI:</label>
+        <input type="text" name="bmi" id="bmi" required>
+
+        <label for="HbA1c_level">HbA1c Level:</label>
+        <input type="text" name="HbA1c_level" id="HbA1c_level" required>
+
+        <label for="blood_glucose_level">Blood Glucose Level:</label>
+        <input type="text" name="blood_glucose_level" id="blood_glucose_level" required>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if result is not none %}
+    <div class="result">
+        <h3>Prediction: {% if result == 1 %}Diabetic{% else %}Not Diabetic{% endif %}</h3>
+    </div>
+    {% endif %}
+
+    {% else %}
+    <header>
+        <img src="{% static 'ipl_predictor/logo.jpeg' %}" alt="IPL Score Prediction" class="logo">
+        <h2>IPL Score Prediction</h2>
+    </header>
+
+    <form method="POST" action="{% url 'predict_ipl_score' %}">
+        {% csrf_token %}
+        
+        <label for="batting_team">Batting Team:</label>
+        <select name="batting_team" id="batting_team" required>
+            <option value="Chennai Super Kings">Chennai Super Kings</option>
+            <option value="Delhi Capitals">Delhi Capitals</option>
+            <option value="Kings XI Punjab">Kings XI Punjab</option>
+            <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+            <option value="Mumbai Indians">Mumbai Indians</option>
+            <option value="Rajasthan Royals">Rajasthan Royals</option>
+            <option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+            <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+        </select>
+
+        <label for="bowling_team">Bowling Team:</label>
+        <select name="bowling_team" id="bowling_team" required>
+            <option value="Chennai Super Kings">Chennai Super Kings</option>
+            <option value="Delhi Capitals">Delhi Capitals</option>
+            <option value="Kings XI Punjab">Kings XI Punjab</option>
+            <option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+            <option value="Mumbai Indians">Mumbai Indians</option>
+            <option value="Rajasthan Royals">Rajasthan Royals</option>
+            <option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+            <option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+        </select>
+
+        <label for="overs">Overs:</label>
+        <input type="number" name="overs" id="overs" min="1" max="20" required>
+
+        <label for="runs">Current Runs:</label>
+        <input type="number" name="runs" id="runs" required>
+
+        <label for="wickets">Wickets:</label>
+        <input type="number" name="wickets" id="wickets" min="0" max="10" required>
+
+        <label for="runs_last_5">Runs in Last 5 Overs:</label>
+        <input type="number" name="runs_last_5" id="runs_last_5" required>
+
+        <label for="wickets_last_5">Wickets in Last 5 Overs:</label>
+        <input type="number" name="wickets_last_5" id="wickets_last_5" min="0" max="10" required>
+
+        <button type="submit">Predict Score</button>
+    </form>
+
+    {% if ipl_result is not none %}
+    <div class="result">
+        <h3>Predicted Score: {{ ipl_result }}</h3>
+    </div>
+    {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
